@@ -1,64 +1,38 @@
--- INSERT INTO department(department_name)
--- VALUES("Sales"),
---         ("Engineering"),
---         ("Finance"),
---         ("Legal");
-
---         INSERT INTO roles(title)
---         VALUES("salesperson"),
---         ("lead engineer"),
---         ("software engineer"),
---         ("account Manager"),
---         ("accountant"),
---         ("legal team lead"),
---         ("lawyer");
--- INSERT INTO roles(salary)
--- VALUES("28000")
 
 
---  INSERT INTO roles(manager_id)
---    VALUES("9")
---         ("5")
---         ("3")
---         ("7")
---         ("6")
---         ("4")
---         ("1")
+     INSERT INTO department(department_name)  
+     VALUES     ("Engineer"),("Sales"),('Finance'),("Legal")
 
--- INSERT INTO employee(first_name)
---         VALUES("Dexter")
---                 ("Jordan")
---                 ("Cristano")
---                 ("jake")
---                 ("Logan")
---                 ("Mikey")
---                 ("Aren")
--- INSERT INTO employee(last_name)
---     VALUES ("lee")
---             ("Night")
---             ("Rolando")
---             ("bright")
---             ("johnson")
---             ("maront")
---             ("O'eal")
 
---     INSERT INTO  employee(role_id)
---         VALUES("45")
---                 ("96")
---                 ("32")
---                 ("23")
---                 ("12")
---                 ("24")
---                 ("33")
-
---                 INSERT INTO employee(manager_id)
---                 VALUES
-            
+     INSERT INTO role(title),(salary),(department_id)
+     VALUES("Lead Engineer",15000,1),
+     ("Software Engineer",12000,1),
+     ("Saleperson",80000,2),
+     ("Account Manager",16000,3),
+     ("Accountant",125000,3)
+     ("Legal Team Lead",25000,4)
+     ("Lawyer",19000,4)
 
 INSERT INTO employee(first_name,last_name,role_id,manager_id)
-VALUES("Jordan","lee",9),("Cristano","Rolando",5)("Dexter","Night"3),("Mikey","Morant",1),("Aren","Eager",4),("Allen","Cube",7)("Tonny","Mohntanna",2)
+VALUES("Jordan","lee",1,1),
+("Cristano","Rolando",3,2)
+("Dexter","Night"6,NUll),
+("Mikey","Morant",1,3),
+("Aren","Eager",4,1),
+("Allen","Cube",7,NULL),
+("Tonny","Mohntanna",5,NUll);
 
-INSERT INTO 
+INSERT INTO employee(manager),(manager_id)
+VALUES("dexter,Night",1),("Allen, Cube",2),("Tonny,Mohntanna",3);
+
+SELECT * FROM employee;
+SELECT * FROM Manager;
+
+
+-- INSERT INTO roles(id,title,salary,department_id)
+-- VALUES(1,"sales",2400,7),(4,"Finance",26000,9),()
+
+
 
 
 
