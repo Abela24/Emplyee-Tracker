@@ -13,8 +13,8 @@ CREATE TABLE roles(
 id INT NOT NUll AUTO_INCREMENT PRIMARY KEY,
 title VARCHAR(30)NUll,
 salary DECIMAl,
-department_id INT NUll
-PRIMARY KEY (role_id)
+department_id INT NUll,
+(role_id)
 );
 
 CREATE TABLE employee(
@@ -25,8 +25,8 @@ role_id INT NUll,
 manager_id INT NUll
 );
 
-CREATE TABLE Manager(
-    manager_id NUll AUTO_INCREMENT,
-    manager VARCHAR(30)
-    PRIMARY KEY (manager_id)
-)
+-- CREATE TABLE Manager(
+--     manager_id NUll AUTO_INCREMENT,
+--     manager VARCHAR(30),
+--     PRIMARY KEY (manager_id)
+-- )

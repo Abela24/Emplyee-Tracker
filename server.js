@@ -23,6 +23,9 @@ const db = mysql.createconnection(
 
 
 
+const employeeRole = () => {
+    connection.query(SELECT, title, FROM,role)
+}
 
 
 
@@ -32,8 +35,7 @@ const db = mysql.createconnection(
 
 
 
-
-.promt({
+questions.promt({
     name:"init",
     type:"list",
     message:"What would you like to do next?",
