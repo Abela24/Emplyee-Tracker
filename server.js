@@ -113,7 +113,7 @@ inquirer
   ],
 })
 
-
+// answers
 .then((answer)=>{
   switch(answer.init) {
       case"View all Employee":
@@ -201,3 +201,5 @@ choice: employee
 // app.listen(PORT, () => {
 //   console.log(`Server running on port ${PORT}`);
 // });
+
+// this is a nsafkdhjfjah kfdbfdfkbsfbdfabfbsdbjbskbkbsbskbkbdbfsbdkbsdkbgsdbdkfbak
