@@ -22,11 +22,9 @@ VALUES("Jordan","lee",1,1),
 ("Allen","Cube",7,NULL),
 ("Tonny","Mohntanna",5,NUll);
 
--- INSERT INTO employee(manager),(manager_id)
--- VALUES("dexter,Night",1),("Allen, Cube",2),("Tonny,Mohntanna",3);
 
 SELECT * FROM employee;
-SELECT * FROM Manager;
+
 
 
 -- INSERT INTO roles(id,title,salary,department_id)
