@@ -1,12 +1,13 @@
 const express = require('express');
-const { default: inquirer } = require('inquirer');
+// const { default: inquirer } = require('inquirer');
+const inquirer = require('inquirer')
 var employee= [];
 var managers = [];
 var roles = [];
 //const consoleTable = require("consoleTable")
 // Import and require mysql2
 const mysql = require('mysql2');
-const Connection = require('mysql2/typings/mysql/lib/Connection');
+// const Connection = require('mysql2/typings/mysql/lib/Connection');
 const { type } = require('os');
 
 const PORT = process.env.PORT || 3001;
@@ -142,7 +143,7 @@ inquirer
               viewManagers();
 
               case "All Done":
-              Connection.end();
+              process.exit();
               break;
 
 
@@ -160,6 +161,10 @@ choice: employee
 
   }
 
+questions()
+Employee()
+Roles()
+department()
 
 
 // const allManagers = ()=> {

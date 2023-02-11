@@ -2,13 +2,12 @@ const express = require('express');
 var employee= [];
 var managers = [];
 var roles = [];
-const mySql= require("mySql");
 const consoleTable = require("consoleTable")
 
 app.use(express.json());
 
 // get the client
-const mysql = require('mysql2');
+const mysql = require('mysql2')
 const { allowedNodeEnvironmentFlags } = require('process');
 
 // create the connection to database
