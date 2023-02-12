@@ -1,4 +1,5 @@
 const express = require('express');
+const { connect } = require('http2');
 // const { default: inquirer } = require('inquirer');
 const inquirer = require('inquirer')
 var employee = [];
@@ -130,7 +131,7 @@ const questions = () => {
           allManagers();
 
         case "add employee":
-          addEployee();
+          addEpmloyee();
 
         case "remove employee":
           removeEmployee();
@@ -163,6 +164,64 @@ const allEmployee = () => {
   })
 };
 
+const allManagers = () => {
+  Connection.query(`SELECT first_name, last_name, manager_id FROM employee`, (err, res) => {
+    console.log("\nALL EMPLOYEE\n");
+    if (err) throw err;
+    console.table(res);
+    init();
+  })
+};
+
+
+const allRoles = () => {
+  Connection.query(`SELECT title FROM roles`, (err, res) => {
+    console.log("\nALL ROLES\n");
+    if (err) throw err;
+    console.table(res);
+    init();
+
+  })
+}
+
+const addEpmloyee = () => [
+  managers.push('none');
+inquirer
+  .prompt([{
+    type: 'list',
+    name: 'first_name',
+    messsage: 'What is your first name?',
+  },
+  {
+    type: 'list',
+    name: 'Last_name',
+    message: 'what is your last name',
+  },
+  {
+    type: 'list',
+    name: 'role',
+    message: 'what is your job position',
+    choices: roles
+  },
+  {
+    type: 'list',
+    name: 'manager',
+    message: 'who is your manager',
+    choices: managers
+  },
+    ]).then((answer) => {
+    if (answer.manager == 'none') {
+      Connection.query(`INSERT INTO employee (first_name, last_name, roles_id, managers_id) 
+        Values (`${ answer.firstName }`, `${ answer.last_name }`, ${answer.roles}, null`, (err, res) => {
+        if (err) throw err;
+        init()
+      }
+      )
+    }
+  }
+  )
+
+
 const allDepartment = () => {
   inquirer
     .prompt({
@@ -174,38 +233,83 @@ const allDepartment = () => {
     })
     .then((answer) => {
       if (answer.department == 'Engineer') {
-        Connection.query('SELECT employee.first_name, employee.Last_name FROM employee JOIN role ON employee.roles_id = roles.roles_id JOIN department ON roles.department_id = department.department_id and department.role = "Engineer", (err, res)=> {
-          console.log("\nEngineer\n")
+        Connection.query(`SELECT employee.first_name, employee.Last_name FROM
+         employee JOIN role ON employee.roles_id = roles.roles_id 
+         JOIN department ON roles.department_id = department..id and department.role = "Engineer"`, (err, res) => {
+          console.log("\nEngineer\n");
+          if (err) throw err;
+          console.table(res);
+          init();
         })
       }
-    }
+      else if ((answer) => {
+        if (answer.department == 'Legal') {
+          Connection.query(`SELECT employee.first_name, employee.Last_name FROM
+           employee JOIN role ON employee.roles_id = roles.roles_id 
+           JOIN department ON roles.department_id = department.id and department.role = "Legal"`, (err, res) => {
+            console.log("\nLegal\n");
+            if (err) throw err;
+            console.table(res);
+            init();
+          })
+        }
 
-    )
-}
+        else if ((answer) => {
+          if (answer.department == 'Finance') {
+            Connection.query(`SELECT employee.first_name, employee.Last_name FROM
+         employee JOIN role ON employee.roles_id = roles.roles_id 
+         JOIN department ON roles.department_id = department..id and department.role = "Finance"`, (err, res) => {
+              console.log("\nFinance\n");
+              if (err) throw err;
+              console.table(res);
+              init();
 
-const updateManagers = () => {
-  inquirer
-    .prompt([{
-      type: 'list',
-      name: 'employee',
-      message: 'which employee is gettig a new manager?',
-      choices: employee
-    },
-    {
-      type: 'list',
-      name: 'manager',
-      message: 'who is your manager?',
-      choices: managers
-    },
-    ])
-    .then((answer) => {
-      Connection.query('UPDATE employee SET manager_id = ${answer.manager}
-    ,'WHERE id = ${ answer.employee }', (err, res) => {
-      if (err) throw err;
-    }
+
+            })
+          }
+
+
+
+          const updateManagers = () => {
+            inquirer
+              .prompt([{
+                type: 'list',
+                name: 'employee',
+                message: 'which employee is gettig a new manager?',
+                choices: employee
+              },
+              {
+                type: 'list',
+                name: 'manager',
+                message: 'who is your manager?',
+                choices: managers
+              },
+              ])
+              .then((answer) => {
+                Connection.query(`UPDATE employee SET manager_id = ${answer.manager},WHERE id = ${answer.employee}`, (err, res) => {
+                  if (err) throw err;
+                }
   }
-  )
-}
+              )
+          }
+
+          const removeEmployee = () => {
+            inquirer
+              .prompt({
+                type: 'list',
+                name: 'employee',
+                message: 'select employee you would like to remove?',
+                choices: employee
+              }).then((answer) => {
+                Connection.query(`DELETE FROM employee WHERE id=${answer.employee}`(err, res) => {
+                  if (err) throw err;
+                  init();
+                }
+        console.log(answer)
+              )}
+              
+              }
+init()
 
 
 
