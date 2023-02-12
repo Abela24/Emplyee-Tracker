@@ -1,12 +1,13 @@
 const express = require('express');
 // const { default: inquirer } = require('inquirer');
 const inquirer = require('inquirer')
-var employee= [];
+var employee = [];
 var managers = [];
 var roles = [];
 //const consoleTable = require("consoleTable")
 // Import and require mysql2
 const mysql = require('mysql2');
+const Connection = require('mysql2/typings/mysql/lib/Connection');
 // const Connection = require('mysql2/typings/mysql/lib/Connection');
 const { type } = require('os');
 
@@ -35,31 +36,31 @@ const db = mysql.createConnection(
 
 
 //query all database
-const department =() => {
-  db.query("SELECT * department_name FROM department", function (err, result){
-      if (err) throw error;
-      department = [];
-      for (let i = 0; i< res.length; i++) {
-          const departmentName= res[i].department_name
-          const id = res[i].id
-      }
-      //console log department
-      console.log(result);
+const department = () => {
+  db.query("SELECT * department_name FROM department", function (err, result) {
+    if (err) throw error;
+    department = [];
+    for (let i = 0; i < res.length; i++) {
+      const departmentName = res[i].department_name
+      const id = res[i].id
+    }
+    //console log department
+    console.log(result);
   })
 }
 
 const Roles = () => {
-  db.query('SELECT * title, salary, department_id FROM role', function(err, result){
-     
-      if (err) throw error;
-      roles = [];
-      for (let i = 0; i< res.length; i++) {
-          const titie= res[i].title
-          const salary= res[i].salary
-          const department = res[i].department_id
-      }
-      // console log Roles
-      console.log(result);
+  db.query('SELECT * title, salary, department_id FROM role', function (err, result) {
+
+    if (err) throw error;
+    roles = [];
+    for (let i = 0; i < res.length; i++) {
+      const titie = res[i].title
+      const salary = res[i].salary
+      const department = res[i].department_id
+    }
+    // console log Roles
+    console.log(result);
   }
   )
 }
@@ -67,99 +68,148 @@ const Roles = () => {
 
 
 const Employee = () => {
-  db.query('SELECT * first_name, last_name, role_id, manager_id  FROM employee',(err, res)=> {
-      if (err) throw err;
-      employee = [];
-      for (let i = 0; i < res.length; i ++) {
-          const id = res[i].id;
-          const firstName = res[i].first_name;
-          const lastName = res[i].last_name;
-          const idRole = res[i].role_id;
-          const manager = res[i].manager_id;
+  db.query('SELECT * first_name, last_name, role_id, manager_id  FROM employee', (err, res) => {
+    if (err) throw err;
+    employee = [];
+    for (let i = 0; i < res.length; i++) {
+      const id = res[i].id;
+      const firstName = res[i].first_name;
+      const lastName = res[i].last_name;
+      const idRole = res[i].role_id;
+      const manager = res[i].manager_id;
 
-          var nEmployee = {
-              name: firstName.concat("", lastName,),
-              value: id
-          }
-          return employee;
+      var nEmployee = {
+        name: firstName.concat("", lastName,),
+        value: id
       }
+      return employee;
+    }
   }
-  
-  )}
+
+  )
+}
 
 
 
 
 
-const questions = () =>{
-  getRole();
-  getEmployee();
-  getDeparment();
-inquirer
-.prompt({
-  name:"init",
-  type:"list",
-  message:"What would you like to do next?",
-  choices:[
-      "View all Employees",
-      "View all Employees by Department",
-      "View all Employee by Manager",
-      "add employee",
-      "remove employee",
-      "upadate employee role",
-      "update employee manager",
-      "view all roles",
-      "view all Managers",
+const questions = () => {
+  // Role();
+  // getEmployee();
+  // getDeparment();
+  inquirer
+    .prompt({
+      name: "init",
+      type: "list",
+      message: "What would you like to do next?",
+      choices: [
+        "View all Employees",
+        "View all Employees by Department",
+        "View all Employee by Manager",
+        "add employee",
+        "remove employee",
+        "upadate employee role",
+        "update employee manager",
+        "view all roles",
+        "view all Managers",
 
-  ],
-})
+      ],
+    })
 
-// answers
-.then((answer)=>{
-  switch(answer.init) {
-      case"View all Employee":
-      allEmployee();
-      
+    // answers
+    .then((answer) => {
+      switch (answer.init) {
+        case "View all Employee":
+          allEmployee();
 
-      case "View all Employee by department":
-      allDepartment();
 
-      case "View all Employee by Managers":
+        case "View all Employee by department":
+          allDepartment();
+
+        case "View all Employee by Managers":
           allManagers();
 
-          case"add employee":
+        case "add employee":
           addEployee();
 
-          case"remove employee":
+        case "remove employee":
           removeEmployee();
 
-          case"update employee managers":
+        case "update employee managers":
           updateManagers();
 
-          case"view all roles":
+        case "view all roles":
           allRoles();
 
-          case "view all managers":
-              viewManagers();
+        case "view all managers":
+          viewManagers();
 
-              case "All Done":
-              process.exit();
-              break;
+        case "All Done":
+          process.exit();
+          break;
 
 
 
-  }
-})}
-const getEmployee = () => {
+      }
+    })
+}
+
+const allEmployee = () => {
+  Connection.query(rolecheck, (err, res) => {
+    console.log("\nALL EMPLOYEE\n");
+    if (err) throw err;
+    console.table(res);
+    init();
+  })
+};
+
+const allDepartment = () => {
   inquirer
-  .prompt({
-type:"list",
-name:"employee",
-message:"view all employee",
-choice: employee
-  }).then((answer))
+    .prompt({
+      type: 'list',
+      name: 'department',
+      message: 'select a department',
+      choices: ['Engineer', 'Legal', 'Finance']
 
+    })
+    .then((answer) => {
+      if (answer.department == 'Engineer') {
+        Connection.query('SELECT employee.first_name, employee.Last_name FROM employee JOIN role ON employee.roles_id = roles.roles_id JOIN department ON roles.department_id = department.department_id and department.role = "Engineer", (err, res)=> {
+          console.log("\nEngineer\n")
+        })
+      }
+    }
+
+    )
+}
+
+const updateManagers = () => {
+  inquirer
+    .prompt([{
+      type: 'list',
+      name: 'employee',
+      message: 'which employee is gettig a new manager?',
+      choices: employee
+    },
+    {
+      type: 'list',
+      name: 'manager',
+      message: 'who is your manager?',
+      choices: managers
+    },
+    ])
+    .then((answer) => {
+      Connection.query('UPDATE employee SET manager_id = ${answer.manager}
+    ,'WHERE id = ${ answer.employee }', (err, res) => {
+      if (err) throw err;
+    }
   }
+  )
+}
+
+
+
+
 
 questions()
 Employee()
@@ -193,18 +243,15 @@ department()
 // const employeeDepartments
 
 
-// // Query database
-// db.query('SELECT * FROM students', function (err, results) {
-//   console.log(results);
-// });
+// 
 
-// // Default response for any other request (Not Found)
-// app.use((req, res) => {
-//   res.status(404).end();
-// });
+// const getEmployee = () => {
+//   inquirer
+//   .prompt({
+// type:"list",
+// name:"employee",
+// message:"view all employee",
+// choice: employee
+//   }).then((answer))
 
-// app.listen(PORT, () => {
-//   console.log(`Server running on port ${PORT}`);
-// });
-
-// this is a nsafkdhjfjah kfdbfdfkbsfbdfabfbsdbjbskbkbsbskbkbdbfsbdkbsdkbgsdbdkfbak
+//   }

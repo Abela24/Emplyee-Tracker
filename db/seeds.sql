@@ -1,22 +1,22 @@
 
 
      INSERT INTO department(department_name)  
-     VALUES     ("Engineer"),("Sales"),('Finance'),("Legal")
+     VALUES     ("Engineer"),("Sales"),('Finance'),("Legal");
 
 
-     INSERT INTO role(title),(salary),(department_id)
+     INSERT INTO roles(title,salary,department_id)
      VALUES("Lead Engineer",15000,1),
      ("Software Engineer",12000,1),
      ("Saleperson",80000,2),
      ("Account Manager",16000,3),
-     ("Accountant",125000,3)
-     ("Legal Team Lead",25000,4)
-     ("Lawyer",19000,4)
+     ("Accountant",125000,3),
+     ("Legal Team Lead",25000,4),
+     ("Lawyer",19000,4);
 
-INSERT INTO employee(first_name,last_name,role_id,manager_id)
+INSERT INTO employee(first_name,last_name,roles_id,manager_id)
 VALUES("Jordan","lee",1,1),
-("Cristano","Rolando",3,2)
-("Dexter","Night"6,NUll),
+("Cristano","Rolando",3,2),
+("Dexter","Night",6,NUll),
 ("Mikey","Morant",1,3),
 ("Aren","Eager",4,1),
 ("Allen","Cube",7,NULL),
