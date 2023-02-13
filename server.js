@@ -184,7 +184,7 @@ const allRoles = () => {
   })
 }
 
-const addEpmloyee = () => [
+const addEpmloyee = () => {
   managers.push('none');
 inquirer
   .prompt([{
@@ -212,14 +212,15 @@ inquirer
     ]).then((answer) => {
     if (answer.manager == 'none') {
       Connection.query(`INSERT INTO employee (first_name, last_name, roles_id, managers_id) 
-        Values (`${ answer.firstName }`, `${ answer.last_name }`, ${answer.roles}, null`, (err, res) => {
+        Values (`,$,{answer,firstName }` `,$,{ answerlast_name }` ,${answer.roles} null`, (err, res) => {
         if (err) throw err;
         init()
+      
       }
-      )
-    }
-  }
-  )
+      )}
+  });
+
+  
 
 
 const allDepartment = () => {
@@ -286,12 +287,14 @@ const allDepartment = () => {
               },
               ])
               .then((answer) => {
-                Connection.query(`UPDATE employee SET manager_id = ${answer.manager},WHERE id = ${answer.employee}`, (err, res) => {
+                Connection.query(`UPDATE employee
+                 SET manager_id = ${answer.manager},
+                WHERE id = ${answer.employee}`, (err, res) => {
                   if (err) throw err;
-                }
-  }
-              )
-          }
+                  init()
+                })
+              })
+            };
 
           const removeEmployee = () => {
             inquirer
@@ -301,14 +304,13 @@ const allDepartment = () => {
                 message: 'select employee you would like to remove?',
                 choices: employee
               }).then((answer) => {
-                Connection.query(`DELETE FROM employee WHERE id=${answer.employee}`(err, res) => {
+                Connection.query(`DELETE FROM employee WHERE id=${answer.employee}` (err,res) => {
                   if (err) throw err;
                   init();
                 }
         console.log(answer)
-              )}
-              
-              }
+              )
+            })}}
 init()
 
 
@@ -358,4 +360,4 @@ department()
 // choice: employee
 //   }).then((answer))
 
-//   }
+//   
