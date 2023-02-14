@@ -34,7 +34,6 @@ const db = mysql.createConnection(
 
 
 
-function init() => {
 
 //query all database
 const department = () => {
@@ -100,7 +99,7 @@ const questions = () => {
   // getDeparment();
   inquirer
     .prompt({
-      name: "init",
+      name: "questions",
       type: "list",
       message: "What would you like to do next?",
       choices: [
@@ -119,7 +118,7 @@ const questions = () => {
 
     // answers
     .then((answer) => {
-      switch (answer.init) {
+      switch (answer.questions) {
         case "View all Employee":
           allEmployee();
 
@@ -169,7 +168,7 @@ const allManagers = () => {
     console.log("\nALL EMPLOYEE\n");
     if (err) throw err;
     console.table(res);
-    init();
+    questions();
   })
 };
 
@@ -179,7 +178,7 @@ const allRoles = () => {
     console.log("\nALL ROLES\n");
     if (err) throw err;
     console.table(res);
-    init();
+    questions();
 
   })
 }
@@ -214,7 +213,7 @@ inquirer
       Connection.query(`INSERT INTO employee (first_name, last_name, roles_id, managers_id) 
         Values (`,$,{answer,firstName }` `,$,{ answerlast_name }` ,${answer.roles} null`, (err, res) => {
         if (err) throw err;
-        init()
+        questions()
       
       }
       )}
@@ -240,7 +239,7 @@ const allDepartment = () => {
           console.log("\nEngineer\n");
           if (err) throw err;
           console.table(res);
-          init();
+          questions();
         })
       }
       else if ((answer) => {
@@ -251,7 +250,7 @@ const allDepartment = () => {
             console.log("\nLegal\n");
             if (err) throw err;
             console.table(res);
-            init();
+            questions();
           })
         }
 
@@ -263,7 +262,7 @@ const allDepartment = () => {
               console.log("\nFinance\n");
               if (err) throw err;
               console.table(res);
-              init();
+              questions();
 
 
             })
@@ -291,7 +290,7 @@ const allDepartment = () => {
                  SET manager_id = ${answer.manager},
                 WHERE id = ${answer.employee}`, (err, res) => {
                   if (err) throw err;
-                  init()
+                  questions()
                 })
               })
             };
@@ -306,14 +305,14 @@ const allDepartment = () => {
               }).then((answer) => {
                 Connection.query(`DELETE FROM employee WHERE id=${answer.employee}`, (err,res) => {
                   if (err) throw err;
-                  init();
+                  questions();
                 });
         console.log(answer)
               
             })}}
-          }
           
-init()
+          
+
 
 
 
