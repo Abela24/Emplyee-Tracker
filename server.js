@@ -1,23 +1,12 @@
 const express = require('express');
 const { connect } = require('http2');
-// const { default: inquirer } = require('inquirer');
-const inquirer = require('inquirer')
+const inquirer = require('inquirer');
+const mysql = require('mysql2');
+const consoleTable = require('console.table');
+
 var employee = [];
 var managers = [];
 var roles = [];
-//const consoleTable = require("consoleTable")
-// Import and require mysql2
-const mysql = require('mysql2');
-const Connection = require('mysql2/typings/mysql/lib/Connection');
-// const Connection = require('mysql2/typings/mysql/lib/Connection');
-const { type } = require('os');
-
-const PORT = process.env.PORT || 3001;
-const app = express();
-
-// Express middleware
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
 
 // Connect to database
 const db = mysql.createConnection(
@@ -26,7 +15,7 @@ const db = mysql.createConnection(
     // MySQL username,
     user: 'root',
     // MySQL password
-    password: 'password',
+    password: 'Password',
     database: 'employee_db'
   },
   console.log(`Connected to the employee_db database.`)
@@ -320,7 +309,7 @@ inquirer
 
 
 
-questions()
+questions();
 Employee()
 Roles()
 department()
