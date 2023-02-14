@@ -15,13 +15,15 @@ const db = mysql.createConnection(
     // MySQL username,
     user: 'root',
     // MySQL password
-    password: 'Password',
+    password: 'password',
     database: 'employee_db'
   },
   console.log(`Connected to the employee_db database.`)
 );
 
-
+db.connect(function (err){
+  if (err) throw err ;
+});
 
 
 //query all database
@@ -310,9 +312,9 @@ inquirer
 
 
 questions();
-Employee()
-Roles()
-department()
+// Employee()
+// Roles()
+// department()
 
 
 // const allManagers = ()=> {
