@@ -34,7 +34,7 @@ const db = mysql.createConnection(
 
 
 
-
+function init() => {
 
 //query all database
 const department = () => {
@@ -304,13 +304,15 @@ const allDepartment = () => {
                 message: 'select employee you would like to remove?',
                 choices: employee
               }).then((answer) => {
-                Connection.query(`DELETE FROM employee WHERE id=${answer.employee}` (err,res) => {
+                Connection.query(`DELETE FROM employee WHERE id=${answer.employee}`, (err,res) => {
                   if (err) throw err;
                   init();
-                }
+                });
         console.log(answer)
-              )
+              
             })}}
+          }
+          
 init()
 
 
@@ -360,4 +362,4 @@ department()
 // choice: employee
 //   }).then((answer))
 
-//   
+  
