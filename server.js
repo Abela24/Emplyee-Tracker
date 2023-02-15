@@ -110,30 +110,36 @@ const questions = () => {
     // answers
     .then((answer) => {
       switch (answer.questions) {
-        case "View all Employee":
+        case "View all Employees":
           allEmployee();
-
-
-        case "View all Employee by department":
+          break;
+        case "View all Employees by department":
           allDepartment();
+          break;
 
         case "View all Employee by Managers":
           allManagers();
-
+          break;
+ 
         case "add employee":
           addEpmloyee();
+          break;
 
         case "remove employee":
           removeEmployee();
+          break;
 
         case "update employee managers":
           updateManagers();
+          break;
 
         case "view all roles":
           allRoles();
+          break;
 
         case "view all managers":
           viewManagers();
+          break;
 
         case "All Done":
           process.exit();
@@ -146,11 +152,11 @@ const questions = () => {
 }
 
 const allEmployee = () => {
-  Connection.query(rolecheck, (err, res) => {
+  db.query('SELECT * FROM employee', (err, res) => {
     console.log("\nALL EMPLOYEE\n");
     if (err) throw err;
     console.table(res);
-    init();
+    questions();
   })
 };
 
