@@ -77,7 +77,7 @@ const Employee = () => {
     }
   }
 
-  )
+  );
 }
 
 
@@ -100,7 +100,7 @@ const questions = () => {
         "add employee",
         "remove employee",
         "upadate employee role",
-        "update employee manager",
+        "update employee managers",
         "view all roles",
         "view all Managers",
 
@@ -113,11 +113,11 @@ const questions = () => {
         case "View all Employees":
           allEmployee();
           break;
-        case "View all Employees by department":
+        case "View all Employees by Department":
           allDepartment();
           break;
 
-        case "View all Employee by Managers":
+        case "View all Employee by Manager":
           allManagers();
           break;
  
@@ -161,7 +161,7 @@ const allEmployee = () => {
 };
 
 const allManagers = () => {
-  Connection.query(`SELECT first_name, last_name, manager_id FROM employee`, (err, res) => {
+  db.query(`SELECT first_name, last_name, manager_id FROM employee`, (err, res) => {
     console.log("\nALL EMPLOYEE\n");
     if (err) throw err;
     console.table(res);
@@ -171,7 +171,7 @@ const allManagers = () => {
 
 
 const allRoles = () => {
-  Connection.query(`SELECT title FROM roles`, (err, res) => {
+  db.query(`SELECT title FROM roles`, (err, res) => {
     console.log("\nALL ROLES\n");
     if (err) throw err;
     console.table(res);
@@ -226,7 +226,7 @@ inquirer
       })
       .then(answer => {
         if (answer.department == 'Engineer') {
-          Connection.query(
+          db.query(
             `SELECT employee.first_name, employee.Last_name FROM
            employee JOIN role ON employee.roles_id = roles.roles_id 
            JOIN department ON roles.department_id = department..id and department.role = "Engineer"`,
@@ -302,7 +302,7 @@ inquirer
                 message: 'select employee you would like to remove?',
                 choices: employee
               }).then((answer) => {
-                Connection.query(`DELETE FROM employee WHERE id=${answer.employee}`, (err,res) => {
+                db.query(`DELETE FROM employee WHERE id=${answer.employee}`, (err,res) => {
                   if (err) throw err;
                   questions();
                 });
@@ -318,46 +318,7 @@ inquirer
 
 
 questions();
-// Employee()
-// Roles()
-// department()
 
 
-// const allManagers = ()=> {
-//     inquirer
-//     .prompt({
-//         type:"list",
-//         name: 'manager',
-//         message: "choose employee manager",
-//         choices: managers
-//     }).then(answer) => {
-//     connection.query ('SELECT first_name, last_name FROM employee WHERE manager_id = ${answer.manager}; '),
-//     (err, res) => {
-//         if (err) throw err ;
-//         console.table(res);
-//         init()
-//     }, }
-// }
-
-
-// const allRoles
-
-
-// const allEmployee
-
-
-// const employeeDepartments
-
-
-// 
-
-// const getEmployee = () => {
-//   inquirer
-//   .prompt({
-// type:"list",
-// name:"employee",
-// message:"view all employee",
-// choice: employee
-//   }).then((answer))
 
   
