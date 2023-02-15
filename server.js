@@ -207,7 +207,7 @@ inquirer
   },
     ]).then((answer) => {
     if (answer.manager == 'none') {
-      Connection.query(`INSERT INTO employee (first_name, last_name, roles_id, managers_id) 
+      db.query(`INSERT INTO employee (first_name, last_name, roles_id, managers_id) 
         Values (`,$,{answer,firstName }` `,$,{ answerlast_name }` ,${answer.roles} null`, (err, res) => {
         if (err) throw err;
         questions()
@@ -228,8 +228,8 @@ inquirer
         if (answer.department == 'Engineer') {
           db.query(
             `SELECT employee.first_name, employee.Last_name FROM
-           employee JOIN role ON employee.roles_id = roles.roles_id 
-           JOIN department ON roles.department_id = department..id and department.role = "Engineer"`,
+           employee JOIN roles ON employee.roles_id = roles.id 
+           JOIN department ON roles.department_id = department.id and department.department_name = "Engineer"`,
             (err, res) => {
               console.log('\nEngineer\n')
               if (err) throw err
@@ -238,7 +238,7 @@ inquirer
             }
           )
         } else if (answer.department == 'Legal') {
-          Connection.query(
+          db.query(
             `SELECT employee.first_name, employee.Last_name FROM
              employee JOIN role ON employee.roles_id = roles.roles_id 
              JOIN department ON roles.department_id = department.id and department.role = "Legal"`,
@@ -250,7 +250,7 @@ inquirer
             }
           )
         } else if (answer.department == 'Finance') {
-          Connection.query(
+          db.query(
             `SELECT employee.first_name, employee.Last_name FROM
            employee JOIN role ON employee.roles_id = roles.roles_id 
            JOIN department ON roles.department_id = department..id and department.role = "Finance"`,
@@ -282,7 +282,7 @@ inquirer
         },
       ])
       .then(answer => {
-        Connection.query(
+        db.query(
           `UPDATE employee
                    SET manager_id = ${answer.manager},
                   WHERE id = ${answer.employee}`,
