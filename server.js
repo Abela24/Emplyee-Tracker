@@ -184,12 +184,12 @@ const addEpmloyee = () => {
   managers.push('none');
 inquirer
   .prompt([{
-    type: 'list',
+    type: 'input',
     name: 'first_name',
     messsage: 'What is your first name?',
   },
   {
-    type: 'list',
+    type: 'input',
     name: 'Last_name',
     message: 'what is your last name',
   },
@@ -293,27 +293,49 @@ inquirer
         )
       })
   }
+  
 
-          const removeEmployee = () => {
-            inquirer
-              .prompt({
-                type: 'list',
-                name: 'employee',
-                message: 'select employee you would like to remove?',
-                choices: employee
-              }).then((answer) => {
-                db.query(`DELETE FROM employee WHERE id=${answer.employee}`, (err,res) => {
-                  if (err) throw err;
-                  questions();
-                });
-        console.log(answer)
+        //   const removeEmployee = () => {
+        //     db.query(`SELECT * FROM employee`,(err, res)) => {
+        //     inquirer
+        //       .prompt({
+        //         type: 'list',
+        //         name: 'employee',
+        //         message: 'select employee you would like to remove?',
+        //         choices: employee
+        //       }).then((answer) => {
+        //         db.query(`DELETE FROM employee WHERE id=${answer.employee}`, (err,res) => {
+        //           if (err) throw err;
+        //           questions();
+        //         });
+        // console.log(answer)
               
-            })}
+        //     })}}
           
           
 
 
-
+            const removeEmployee = () => {
+              // query the employees 
+               db.query('SELECT * FROM employee', (err, res) => {
+                  console.log("result", res);
+                //use res to create a variable with the employees
+                  const employeeChoices= //use map to make this
+              //best would be object {name: this will be the employee name, value: this is the employee id}
+                          inquirer
+                            .prompt({
+                              type: 'list',
+                              name: 'employee',
+                              message: 'select employee you would like to remove?',
+                              choices: employeeChoices
+                            }).then((answer) => {
+                              db.query(`DELETE FROM employee WHERE id=${answer.value}`, (err,res) => {
+                                if (err) throw err;
+                                questions();
+                              });
+                      console.log(answer)
+                            
+                          })})
 
 
 
