@@ -327,7 +327,7 @@ inquirer
                               type: 'list',
                               name: 'employee',
                               message: 'select employee you would like to remove?',
-                              choices: employeeChoices
+                              // choices: employeeChoices
                             }).then((answer) => {
                               db.query(`DELETE FROM employee WHERE id=${answer.value}`, (err,res) => {
                                 if (err) throw err;
@@ -339,8 +339,9 @@ inquirer
 
 
 
-questions();
+                        }
+                          questions()
 
 
 
-  
+                        
