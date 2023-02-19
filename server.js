@@ -3,6 +3,7 @@ const { connect } = require('http2');
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
 const consoleTable = require('console.table');
+const { find } = require('rxjs');
 
 var employee = [];
 var managers = [];
@@ -294,48 +295,58 @@ inquirer
       })
   }
   
+  async function removeEmployee() {
+    // query the employees 
+    const findEmployees = await db.promise().query('SELECT id, first_name, last_name FROM employee');
+    console.log(findEmployees);
+    //use res to create a variable with the employees
+    const employeeChoices =//use map to make this
+      //best would be object {name: this will be the employee name, value: this is the employee id}
+      findEmployees.map(function(employee)){
+        return
+      }
+      inquirer
+      .prompt({
+        type: 'list',
+        name: 'employee',
+        message: 'select employee you would like to remove?',
+        choices: employeeChoices
+      }).then((answer) => {
+        db.query(`DELETE FROM employee WHERE id=${answer.value}`, (err, res) => {
+          if (err) throw err;
+          questions();
+        });
+        console.log(answer)
+  
+      })
+  }
 
-        //   const removeEmployee = () => {
-        //     db.query(`SELECT * FROM employee`,(err, res)) => {
-        //     inquirer
-        //       .prompt({
-        //         type: 'list',
-        //         name: 'employee',
-        //         message: 'select employee you would like to remove?',
-        //         choices: employee
-        //       }).then((answer) => {
-        //         db.query(`DELETE FROM employee WHERE id=${answer.employee}`, (err,res) => {
-        //           if (err) throw err;
-        //           questions();
-        //         });
-        // console.log(answer)
-              
-        //     })}}
+       
           
-          
+ // query the employees 
+ //const findEmployees = await db.promise().query('SELECT id, first_name, last_name FROM employee');
 
-
-            const removeEmployee = () => {
-              // query the employees 
-               db.query('SELECT * FROM employee', (err, res) => {
-                  console.log("result", res);
-                //use res to create a variable with the employees
-                  const employeeChoices= //use map to make this
-              //best would be object {name: this will be the employee name, value: this is the employee id}
-                          inquirer
-                            .prompt({
-                              type: 'list',
-                              name: 'employee',
-                              message: 'select employee you would like to remove?',
-                              // choices: employeeChoices
-                            }).then((answer) => {
-                              db.query(`DELETE FROM employee WHERE id=${answer.value}`, (err,res) => {
-                                if (err) throw err;
-                                questions();
-                              });
-                      console.log(answer)
+            // const removeEmployee = () => {
+            //   // query the employees 
+            //    db.query('SELECT id, first_name FROM employee', (err, res) => {
+            //       console.log("result", res);
+            //     //use res to create a variable with the employees
+            //       const employeeChoices= //use map to make this
+            //   //best would be object {name: this will be the employee name, value: this is the employee id}
+            //               inquirer
+            //                 .prompt({
+            //                   type: 'list',
+            //                   name: 'employee',
+            //                   message: 'select employee you would like to remove?',
+            //                   choices: employeeChoices
+            //                 }).then((answer) => {
+            //                   db.query(`DELETE FROM employee WHERE id=${answer.value}`, (err,res) => {
+            //                     if (err) throw err;
+            //                     questions();
+            //                   });
+            //           console.log(answer)
                             
-                          })})
+            //               })})
 
 
 
