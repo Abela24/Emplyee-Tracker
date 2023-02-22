@@ -1,9 +1,8 @@
-const express = require('express');
-const { connect } = require('http2');
+
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
 const consoleTable = require('console.table');
-const { find } = require('rxjs');
+
 
 var employee = [];
 var managers = [];
@@ -229,7 +228,7 @@ inquirer
         if (answer.department == 'Engineer') {
           db.query(
             `SELECT employee.first_name, employee.Last_name FROM
-           employee JOIN roles ON employee.roles_id = roles.id 
+           employee JOIN roles ON employee.role_id = roles.id 
            JOIN department ON roles.department_id = department.id and department.department_name = "Engineer"`,
             (err, res) => {
               console.log('\nEngineer\n')
@@ -241,8 +240,8 @@ inquirer
         } else if (answer.department == 'Legal') {
           db.query(
             `SELECT employee.first_name, employee.Last_name FROM
-             employee JOIN role ON employee.roles_id = roles.roles_id 
-             JOIN department ON roles.department_id = department.id and department.role = "Legal"`,
+             employee JOIN roles ON employee.role_id = roles.id 
+             JOIN department ON roles.department_id = department.id and department.department_name = "Legal"`,
             (err, res) => {
               console.log('\nLegal\n')
               if (err) throw err
@@ -253,8 +252,8 @@ inquirer
         } else if (answer.department == 'Finance') {
           db.query(
             `SELECT employee.first_name, employee.Last_name FROM
-           employee JOIN role ON employee.roles_id = roles.roles_id 
-           JOIN department ON roles.department_id = department..id and department.role = "Finance"`,
+           employee JOIN roles ON employee.role_id = roles.id 
+           JOIN department ON roles.department_id = department.id and department.department_name = "Finance"`,
             (err, res) => {
               console.log('\nFinance\n')
               if (err) throw err
