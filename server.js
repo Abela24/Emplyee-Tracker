@@ -295,36 +295,34 @@ inquirer
       })
   }
 
-
-function removeEmployee () {
-  db.findAllEmployee()
-    .then([rows]) => {
-      let Employees = rows;
-      const employeeChoices =
-      employee.map(({id, first_Name, last_name}) => ({
-        name:`${first_Name} ${last_name}`,
-        value : id
-      }));
-      inquirer
-      prompt([
-      {
-        type: 'list',
-        name: 'employeeId',
-        message: ' which employee do you want to remove?',
-        choices: employeeChoices
-      }
-      ])
-      .then(res =>
-        db.removeEmployee(res.employeeId))
-        .then(()=>
-      .then((answer) => {
-              db.query(`DELETE FROM employee WHERE id=${answer.value}`, (err, res) => {
+  function removeEmployee() {
+    db.findAllEmployee()
+      .then(rows => {  // corrected arrow function with proper parameter list
+        let Employees = rows;
+        const employeeChoices = Employees.map(({id, first_Name, last_name}) => ({ // corrected variable name
+          name: `${first_Name} ${last_name}`,
+          value: id
+        }));
+        inquirer
+          .prompt([
+            {
+              type: 'list',
+              name: 'employeeId',
+              message: 'Which employee do you want to remove?',
+              choices: employeeChoices
+            }
+          ])
+          .then(res => db.removeEmployee(res.employeeId))  // removed extra .then()
+          .then(answer => {
+            db.query(`DELETE FROM employee WHERE id=${answer.value}`, (err, res) => {
               if (err) throw err;
-             questions();
-        console.log("Removed employee from the database"))
-        .then(() =>
-        loadMainPrompts())
-    }}
+              questions();
+              console.log("Removed employee from the database");
+            })
+            .then(() => loadMainPrompts());
+          });
+      });
+  }
   
 
 
@@ -357,7 +355,7 @@ function removeEmployee () {
   //     })
   // }
 
-       
+  //const employeeChoices = Employees.map(({id, first_Name, last_name}) => ({ 
   
                           questions()
 
