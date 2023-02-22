@@ -295,34 +295,87 @@ inquirer
       })
   }
 
-  function removeEmployee() {
-    db.findAllEmployee()
-      .then(rows => {  // corrected arrow function with proper parameter list
-        let Employees = rows;
-        const employeeChoices = Employees.map(({id, first_Name, last_name}) => ({ // corrected variable name
-          name: `${first_Name} ${last_name}`,
-          value: id
-        }));
-        inquirer
-          .prompt([
-            {
-              type: 'list',
-              name: 'employeeId',
-              message: 'Which employee do you want to remove?',
-              choices: employeeChoices
-            }
-          ])
-          .then(res => db.removeEmployee(res.employeeId))  // removed extra .then()
-          .then(answer => {
-            db.query(`DELETE FROM employee WHERE id=${answer.value}`, (err, res) => {
-              if (err) throw err;
-              questions();
-              console.log("Removed employee from the database");
-            })
-            .then(() => loadMainPrompts());
-          });
-      });
-  }
+
+
+// function to delete employees
+removeEmployee = () => {
+  // get employees from employee table 
+  const findAllEmployee = `SELECT * FROM employee`;
+
+  db.promise().query(findAllEmployee, (err, data) => {
+    if (err) throw err; 
+
+  const employees = data.map(({ id, first_name, last_name }) => ({ name: first_name + " "+ last_name, value: id }));
+
+    inquirer.prompt([
+      {
+        type: 'list',
+        name: 'name',
+        message: "Which employee would you like to delete?",
+        choices: employees
+      }
+    ])
+      .then(employeeChoices => {
+        const employee = employeeChoices.name;
+
+        const sql = `DELETE FROM employee WHERE id = ?`;
+
+        connection.query(sql, employee, (err, result) => {
+          if (err) throw err;
+          console.log("Successfully Deleted!");
+        
+          showEmployees();
+    });
+  });
+ });
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // function removeEmployee() {
+  //   db.findAllEmployee()
+  //     .then(rows => {  // corrected arrow function with proper parameter list
+  //       let Employees = rows;
+  //       const employeeChoices = Employees.map(({id, first_Name, last_name}) => ({ // corrected variable name
+  //         name: `${first_Name} ${last_name}`,
+  //         value: id
+  //       }));
+  //       inquirer
+  //         .prompt([
+  //           {
+  //             type: 'list',
+  //             name: 'employeeId',
+  //             message: 'Which employee do you want to remove?',
+  //             choices: employeeChoices
+  //           }
+  //         ])
+  //         .then(res => db.removeEmployee(res.employeeId))  // removed extra .then()
+  //         .then(answer => {
+  //           db.query(`DELETE FROM employee WHERE id=${answer.value}`, (err, res) => {
+  //             if (err) throw err;
+  //             questions();
+  //             console.log("Removed employee from the database");
+  //           })
+  //           .then(() => loadMainPrompts());
+  //         });
+  //     });
+  // }
   
 
 
