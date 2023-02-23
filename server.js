@@ -303,7 +303,7 @@ inquirer
     db.promise().query(findAllEmployee)
       .then(result => {
         const employees = result[0].map(({ id, first_name, last_name }) => ({ name: first_name + " " + last_name, value: id }));
-  
+        //promting questions
         inquirer.prompt([
           {
             type: 'list',
@@ -311,130 +311,32 @@ inquirer
             message: "Which employee would you like to remove?",
             choices: employees
           }
-        ])
+        ])//then showing the choices of employee to remove
           .then(employeeChoices => {
             const employee = employeeChoices.name;
   
             const sql = `DELETE FROM employee WHERE id = ?`;
-  
-            connection.query(sql, employee, (err, result) => {
+            //resulting into a
+            db.query(sql, employee, (err, result) => {
               if (err) throw err;
               console.log("Successfully Deleted!");
   
-              showEmployees();
+              questions();
             });
           });
       })
       .catch(error => console.log(error));
   };
-    // if (err) throw err; 
-
-  // const employees = data.map(({ id, first_name, last_name }) => ({ name: first_name + " "+ last_name, value: id }));
-
-  //   inquirer.prompt([
-  //     {
-  //       type: 'list',
-  //       name: 'name',
-  //       message: "Which employee would you like to remove?",
-  //       choices: employees
-  //
-  //     }
-  //   ])
-  //     .then(employeeChoices => {
-  //       const employee = employeeChoices.name;
-
-  //       const sql = `DELETE FROM employee WHERE id = ?`;
-
-  //       connection.query(sql, employee, (err, result) => {
-  //         if (err) throw err;
-  //         console.log("Successfully Deleted!");
-        
-  //         showEmployees();
-  //   });
-  // });
+    
   
  
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // function removeEmployee() {
-  //   db.findAllEmployee()
-  //     .then(rows => {  // corrected arrow function with proper parameter list
-  //       let Employees = rows;
-  //       const employeeChoices = Employees.map(({id, first_Name, last_name}) => ({ // corrected variable name
-  //         name: `${first_Name} ${last_name}`,
-  //         value: id
-  //       }));
-  //       inquirer
-  //         .prompt([
-  //           {
-  //             type: 'list',
-  //             name: 'employeeId',
-  //             message: 'Which employee do you want to remove?',
-  //             choices: employeeChoices
-  //           }
-  //         ])
-  //         .then(res => db.removeEmployee(res.employeeId))  // removed extra .then()
-  //         .then(answer => {
-  //           db.query(`DELETE FROM employee WHERE id=${answer.value}`, (err, res) => {
-  //             if (err) throw err;
-  //             questions();
-  //             console.log("Removed employee from the database");
-  //           })
-  //           .then(() => loadMainPrompts());
-  //         });
-  //     });
-  // }
   
 
 
 
 
-  
-  // async function removeEmployee() {
-  //   // query the employees 
-  //   const findEmployees = await db.promise().query('SELECT id, first_name, last_name FROM employee');
-  //   console.log(findEmployees);
-  //   //use res to create a variable with the employees
-  //   const employeeChoices =//use map to make this
-  //     //best would be object {name: this will be the employee name, value: this is the employee id}
-  //     // findEmployees.map(function(employee)){
-  //     //   return
-  //     // }
-  //     inquirer
-  //     .prompt({
-  //       type: 'list',
-  //       name: 'employee',
-  //       message: 'select employee you would like to remove?',
-  //       choices: employeeChoices
-  //     }).then((answer) => {
-  //       db.query(`DELETE FROM employee WHERE id=${answer.value}`, (err, res) => {
-  //         if (err) throw err;
-  //         questions();
-  //       });
-  //       console.log(answer)
-  
-  //     })
-  // }
 
-  //const employeeChoices = Employees.map(({id, first_Name, last_name}) => ({ 
   
                           questions()
 
