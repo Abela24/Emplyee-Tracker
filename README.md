@@ -1,13 +1,7 @@
 # Emplyee-Tracker
 
-Description
+The Employee Tracker application is a web-based tool that allows managers and supervisors to track employee data and manage their work schedules. This application is built using MySQL, JavaScript, and Express, and it provides an easy-to-use interface for managing employee information.
 
-Provide a short description explaining the what, why, and how of your project. Use the following questions as a guide:
-
-- What was your motivation?
-- Why did you build this project? (Note: the answer is not "Because it was a homework assignment.")
-- What problem does it solve?
-- What did you learn?
 
 ## Table of Contents (Optional)
 
@@ -19,48 +13,68 @@ If your README is long, add a table of contents to make it easy for users to fin
 - [License](#license)
 
 ## Installation
+To install and use the Employee Tracker application, follow these steps:
 
-What are the steps required to install your project? Provide a step-by-step description of how to get the development environment running.
+Install Node.js on your computer.
+Clone this repository to your local machine.
+Open a terminal and navigate to the directory where the application is located.
+Run npm install to install the required dependencies.
+Open MySQL Workbench and run the schema.sql and seeds.sql files to create the database and seed it with sample data.
+Update the connection.js file with your MySQL database credentials.
+Run npm start to start the application.
+
 
 ## Usage
 
 Provide instructions and examples for use. Include screenshots as needed.
 
-To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax:
+Once the application is installed and running, you can use it to manage employee data. To add a new employee, click the "Add Employee" button and enter the employee's information into the form. To update an existing employee's information, click the "Edit" button next to their name in the employee list. To delete an employee record, click the "Delete" button next to their name.
 
-    ```md
-    ![alt text](assets/images/screenshot.png)
+You can also use the filters to view all employees in a given department or all employees who earn a certain salary range. To update an employee's work schedule, click the "Edit" button next to their name and select the "Schedule" tab.
+
+Finally, you can generate reports on employee data by clicking the "Reports" button. This will display a list of available reports, including a report on salary expenses by department
     ```
 
-## Credits
-
-List your collaborators, if any, with links to their GitHub profiles.
-
-If you used any third-party assets that require attribution, list the creators with links to their primary web presence in this section.
-
-If you followed tutorials, include links to those here as well.
 
 ## License
 
-The last section of a high-quality README file is the license. This lets other developers know what they can and cannot do with your project. If you need help choosing a license, refer to [https://choosealicense.com/](https://choosealicense.com/).
+MIT License
 
----
+Copyright (c) [2023] [Abel]
 
-🏆 The previous sections are the bare minimum, and your project will ultimately determine the content of this document. You might also want to consider adding the following sections.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-## Badges
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-![badmath](https://img.shields.io/github/languages/top/lernantino/badmath)
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
-Badges aren't necessary, per se, but they demonstrate street cred. Badges let other developers know that you know what you're doing. Check out the badges hosted by [shields.io](https://shields.io/). You may not understand what they all represent now, but you will in time.
 
 ## Features
 
-If your project has a lot of features, list them here.
+The Employee Tracker application offers the following features:
 
-## How to Contribute
+Add new employees to the database
+View employee information, including name, job title, department, and salary
+Update employee information, including job title, department, and salary
+Delete employee records from the database
+View all employees in a given department
+View all employees who earn a certain salary range
+Update employee work schedules, including start and end dates
+Generate reports on employee data, including salary expenses by department
 
-If you created an application or package and would like other developers to contribute it, you can include guidelines for how to do so. The [Contributor Covenant](https://www.contributor-covenant.org/) is an industry standard, but you can always write your own if you'd prefer.
+
 
 ## Tests
 
