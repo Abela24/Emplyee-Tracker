@@ -296,36 +296,37 @@ inquirer
 
 
 
-// function to delete employees
-removeEmployee = () => {
-  // get employees from employee table 
-  const findAllEmployee = `SELECT * FROM employee`;
-
-  db.promise().query(findAllEmployee) .then
-
-    const employees = data.map(({ id, first_name, last_name }) => ({ name: first_name + " "+ last_name, value: id }));
-
-    inquirer.prompt([
-      {
-        type: 'list',
-        name: 'name',
-        message: "Which employee would you like to remove?",
-        choices: employees
-      }
-    ])
-      .then(employeeChoices => {
-        const employee = employeeChoices.name;
-
-        const sql = `DELETE FROM employee WHERE id = ?`;
-
-        connection.query(sql, employee, (err, result) => {
-          if (err) throw err;
-          console.log("Successfully Deleted!");
-         
-          showEmployees();
-    });
-  });
+  removeEmployee = () => {
+    // get employees from employee table 
+    const findAllEmployee = `SELECT * FROM employee`;
   
+    db.promise().query(findAllEmployee)
+      .then(result => {
+        const employees = result[0].map(({ id, first_name, last_name }) => ({ name: first_name + " " + last_name, value: id }));
+  
+        inquirer.prompt([
+          {
+            type: 'list',
+            name: 'name',
+            message: "Which employee would you like to remove?",
+            choices: employees
+          }
+        ])
+          .then(employeeChoices => {
+            const employee = employeeChoices.name;
+  
+            const sql = `DELETE FROM employee WHERE id = ?`;
+  
+            connection.query(sql, employee, (err, result) => {
+              if (err) throw err;
+              console.log("Successfully Deleted!");
+  
+              showEmployees();
+            });
+          });
+      })
+      .catch(error => console.log(error));
+  };
     // if (err) throw err; 
 
   // const employees = data.map(({ id, first_name, last_name }) => ({ name: first_name + " "+ last_name, value: id }));
@@ -336,7 +337,7 @@ removeEmployee = () => {
   //       name: 'name',
   //       message: "Which employee would you like to remove?",
   //       choices: employees
-  //.
+  //
   //     }
   //   ])
   //     .then(employeeChoices => {
@@ -352,7 +353,7 @@ removeEmployee = () => {
   //   });
   // });
   
- } ;
+ 
 
 
 
