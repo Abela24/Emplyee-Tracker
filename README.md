@@ -26,7 +26,7 @@ Run npm start to start the application.
 
 ## Usage
 
-Provide instructions and examples for use. Include screenshots as needed.
+https://drive.google.com/file/d/1RT9WSgoHebAfYRQfW1l0aVKPIXpigi5G/view
 
 Once the application is installed and running, you can use it to manage employee data. To add a new employee, click the "Add Employee" button and enter the employee's information into the form. To update an existing employee's information, click the "Edit" button next to their name in the employee list. To delete an employee record, click the "Delete" button next to their name.
 
